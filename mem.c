@@ -45,10 +45,10 @@ Yes, you can overflow the input buffers. The fix is: don't.
 #include <dirent.h>
 
 // Enable for debug output todo
-#define DBGR 0
+//#define DBGR 0
 
 // save the memory from start-(start+length) of PID to the file 'name'
-void readMem(int pid, int start, unsigned int len, FILE *out_file);
+void readMem(int pid, unsigned int start, unsigned int len, FILE *out_file);
 void pullPidMemory(FILE *out_file, int target_pid);
 void pullAllPidMemory(FILE *out_file);
 
@@ -127,7 +127,7 @@ int main(int argc, void **argv)
 	return 0;
 }
 
-void readMem(int pid, int start, unsigned int len, FILE *out_file)
+void readMem(int pid, unsigned int start, unsigned int len, FILE *out_file)
 {
 	FILE *pid_mem_file;
 	char *temp_buffer = calloc(1, len);
@@ -157,8 +157,8 @@ void pullPidMemory(FILE *out_file, int target_pid)
 	char *maps_path = calloc(1, 256);
 	char *name = calloc(1, 256);
 
-	int mem_low = 0;
-	int mem_high = 0;
+	unsigned int mem_low = 0;
+	unsigned int mem_high = 0;
 
 	int i;
 
@@ -200,8 +200,6 @@ void pullPidMemory(FILE *out_file, int target_pid)
 		{
 			readMem(target_pid, mem_low, mem_high-mem_low, out_file);
 		}
-
-		
 	}
 leave:
 	ptrace(PTRACE_DETACH, target_pid, 0, 0);
@@ -210,7 +208,6 @@ leave:
 }
 
 // given an ouptut path, pull all PID's memory
-// TODO: write the name of each PID at the start of each block of memory
 void pullAllPidMemory(FILE *out_file)
 {
 	DIR *d;

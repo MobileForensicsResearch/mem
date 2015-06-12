@@ -1,7 +1,7 @@
 # mem
 Tool used for dumping memory from Android devices
 
-./mem <pid> <out_path>
+./mem /<pid/> /<out_path/>
  - where <pid> is the target PID to capture
  - and <out_path> is the local dir to write output
  If <out_path> is not there, writes to stdout

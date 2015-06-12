@@ -1,5 +1,5 @@
 # mem
-Tool used for dumping memory from Android devices
+Tool used for dumping memory from Android devices. Root access is required.
 
 ./mem pid out_path
  - where pid is the target PID to capture
